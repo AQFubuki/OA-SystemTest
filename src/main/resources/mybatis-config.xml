@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <!-- goods_id ==> goodsId 驼峰命名转换 -->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+    <!--    &lt;!&ndash;启用Pagehelper分页插件&ndash;&gt;-->
+<!--    <plugins>-->
+<!--        <plugin interceptor="com.github.pagehelper.PageInterceptor">-->
+<!--            &lt;!&ndash;设置数据库类型&ndash;&gt;-->
+<!--            <property name="helperDialect" value="mysql"/>-->
+<!--            &lt;!&ndash;分页合理化&ndash;&gt;-->
+<!--            <property name="reasonable" value="true"/>-->
+<!--        </plugin>-->
+<!--    </plugins>-->
+
+    <!--设置默认指向的数据库-->
+    <environments default="dev1">
+        <!--配置环境，不同的环境不同的id名字-->
+        <environment id="dev">
+            <!-- 采用JDBC方式对数据库事务进行commit/rollback -->
+            <transactionManager type="JDBC"></transactionManager>
+            <!--采用连接池方式管理数据库连接-->
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url"
+                          value="jdbc:mysql://localhost:3306/fubuki_oa?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=Asia/Shanghai&amp;allowPublicKeyRetrieval=true"/>
+                <property name="username" value="root"/>
+                <property name="password" value="INDEX103996index"/>
+                <!--...-->
+            </dataSource>
+        </environment>
+
+        <environment id="dev1">
+            <!-- 采用JDBC方式对数据库事务进行commit/rollback -->
+            <transactionManager type="JDBC"></transactionManager>
+            <!--采用连接池方式管理数据库连接-->
+            <dataSource type="com.fubuki.fubukioa.datasource.DruidDataSourceFactory">
+                <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+                <property name="url"
+                          value="jdbc:mysql://localhost:3306/fubuki_oa?useUnicode=true&amp;characterEncoding=UTF-8"/>
+                <property name="username" value="root"/>
+                <property name="password" value="INDEX103996index"/>
+                <property name="initialSize" value="5"/>
+                <property name="maxActive" value="20"/>
+<!--                <property name="minPoolSize" value="5"/>-->
+                <!--...-->
+            </dataSource>
+        </environment>
+
+        <environment id="prd">
+            <!-- 采用JDBC方式对数据库事务进行commit/rollback -->
+            <transactionManager type="JDBC"></transactionManager>
+            <!--采用连接池方式管理数据库连接-->
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url"
+                          value="jdbc:mysql://192.168.1.155:3306/babytun?useUnicode=true&amp;characterEncoding=UTF-8"/>
+                <property name="username" value="root"/>
+                <property name="password" value="INDEX103996index"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+<!--        加载各种sql语句的配置文件-->
+        <mapper resource="mappers/test.xml"/>
+        <mapper resource="mappers/user.xml"/>
+    </mappers>
+</configuration>

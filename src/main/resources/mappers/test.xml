@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="test">
+    <!--开启了二级缓存
+       eviction是缓存的清除策略,当缓存对象数量达到上限后,自动触发对应算法对缓存对象清除
+           1.LRU – 最近最久未使用:移除最长时间不被使用的对象。
+           O1 O2 O3 O4 .. O512
+           14 99 83 1     893
+           2.FIFO – 先进先出:按对象进入缓存的顺序来移除它们。
+           3.SOFT – 软引用:移除基于垃圾收集器状态和软引用规则的对象。
+           4.WEAK – 弱引用:更积极的移除基于垃圾收集器状态和弱引用规则的对象。
+           flushInterval
+           代表间隔多长时间自动清空缓存，单位毫秒
+           size
+           缓存存储上线，用于保存对象或集合的数量上限
+           readOnly
+           设置为true 代表返回只读缓存，每次从缓存取出的是缓存对象本身，执行效率高
+           设置为false 代表取出的是缓存对象的副本，每次取出的对象都是不同的，安全性较高
+   -->
+    <cache eviction="LRU" flushInterval="600000" size="512" readOnly="true"/>
+    <select id="sample" resultType="String">
+        SELECT 'SUCCESS'
+    </select>
+</mapper>
