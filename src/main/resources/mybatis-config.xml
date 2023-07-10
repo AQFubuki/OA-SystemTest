@@ -69,5 +69,6 @@
 <!--        加载各种sql语句的配置文件-->
         <mapper resource="mappers/test.xml"/>
         <mapper resource="mappers/user.xml"/>
+        <mapper resource="mappers/rbac.xml"/>
     </mappers>
 </configuration>

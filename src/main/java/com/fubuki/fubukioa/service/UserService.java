@@ -6,7 +6,7 @@ import com.fubuki.fubukioa.service.exception.LoginException;
 import com.fubuki.fubukioa.utils.MD5Utils;
 
 public class UserService {
-    UserMapper userMapper=new UserMapper();
+    private UserMapper userMapper=new UserMapper();
 
     /**
      * 根据前台输入进行登录校验
