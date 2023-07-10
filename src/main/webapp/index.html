@@ -17,6 +17,12 @@
         <!--        <script src="//cdn.jsdelivr.net/npm/vue@3"></script>-->
         <!-- Import component library -->
         <!--        <script src="//cdn.jsdelivr.net/npm/element-plus"></script>-->
+        <!--        &lt;!&ndash; Import style &ndash;&gt;-->
+        <!--        <link rel="stylesheet" href="//unpkg.com/element-plus/dist/index.css" />-->
+        <!--        &lt;!&ndash; Import Vue 3 &ndash;&gt;-->
+        <!--        <script src="//unpkg.com/vue@3"></script>-->
+        <!--        &lt;!&ndash; Import component library &ndash;&gt;-->
+        <!--        <script src="//unpkg.com/element-plus"></script>-->
         <style>
             .el-header {
                 background-color: rgb(238, 241, 246);
@@ -41,12 +47,51 @@
     <body>
         <div id="app">
             <el-container style="height: 100%;border:1px solid #eee">
-                <el-header>Header</el-header>
+                <el-header>
+                    <el-row>
+                        <el-col :span="12">
+                            <span style="font-size: 18px;color: darkcyan">
+                                付不起OA办公系统
+                            </span>
+                        </el-col>
+                        <el-col :span="12" style="text-align:right">
+                            <el-dropdown>
+                                <i class="el-icon-s-check" style="font-size: 18px;margin-right: 15px">
+                                    <span style="margin-right: 15px">付不起[保洁员]</span>
+                                </i>
+                                <template #dropdown>
+                                    <el-dropdown-menu>
+                                        <el-dropdown-item>注销</el-dropdown-item>
+                                    </el-dropdown-menu>
+                                </template>
+                            </el-dropdown>
+                        </el-col>
+                    </el-row>
+                </el-header>
                 <el-container>
-                    <el-aside>Aside</el-aside>
+                    <!--                    侧边功能区-->
+                    <el-aside>
+                        <!--                        默认展开第一个模块功能-->
+                        <el-menu :default-openeds="['0']">
+                            <template v-for="(item,index) in nodeList">
+                                <el-submenu :index="index.toString()">
+                                    <template #title>
+                                        <i class="el-icon-s-tools">
+                                            {{item.node.nodeName}}
+                                        </i>
+                                    </template>
+                                    <template v-for="child in item.children">
+                                        <el-menu-item :index="child.nodeId.toString()"
+                                                      v-on:click="showPage(child.url)">
+                                            {{child.nodeName}}
+                                        </el-menu-item>
+                                    </template>
+                                </el-submenu>
+                            </template>
+                        </el-menu>
+                    </el-aside>
                     <el-main>
-                        <iframe id="main" name="main"
-                                src="https://www.bilibili.com/"
+                        <iframe id="main" name="main" src="https://www.bilibili.com"
                                 style="width: 100%;height: 95%;
                                 border: 0px"></iframe>
                     </el-main>
@@ -57,9 +102,34 @@
     <script>
         const Main = {
             data() {
-                return {}
+                return {
+                    nodeList: []
+                }
             }
-            , methods: {}
+            , methods: {
+                showPage(url) {
+                    document.getElementById("main").src = url;
+                }
+            }
+            , mounted() {
+
+                // 如果没有用户信息就跳转到登录界面
+                if (sessionStorage.uid == null) {
+                    window.location.href = "/login.html";
+                }
+                //在axios内部的this指的是windows，在外部的this指的是vue，因此要先用objApp提取出来
+                const objApp = this;
+                //response是axios.get()的返回值
+                axios.get("/api/user_info?uid=" + sessionStorage.uid)
+                    .then(function (response) {
+                        const json = response.data;
+                        console.info(json);
+                        json.data.nodeList.forEach(function (item) {
+                            objApp.nodeList.push(item);
+                        });
+                        console.info(objApp.nodeList);
+                    });
+            }
         };
         const app = Vue.createApp(Main);
         app.use(ElementPlus);

@@ -78,7 +78,7 @@
                 onSubmit(formName) {
                     // 通过formName查找表单的引用
                     const form = this.$refs[formName];
-                    //按照规则对表单内容进行校验，valid为true则为校验成功
+                    //按照规则对表单内容进行校验，valid为true则为校验成功（即用户名和密码不为空）
                     form.validate((valid) => {
                         if (valid) {
                             console.info("表单校验成功");
@@ -92,6 +92,9 @@
                                 console.info(response);
                                 const json = response.data;
                                 if (json.code == "0") {
+                                    //使用sessionStorage在浏览器中存储少量信息，在浏览器关闭后消失
+                                    sessionStorage.uid = json.data.user.userId;
+                                    sessionStorage.eid = json.data.user.employeeId;
                                     window.location.href = "/index.html";
                                 } else {
                                     $message.error({message: json.message, offset: 100});
