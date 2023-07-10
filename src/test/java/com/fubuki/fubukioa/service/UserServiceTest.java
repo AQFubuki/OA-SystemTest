@@ -19,6 +19,6 @@ class UserServiceTest {
     }
     @Test
     void checkLogin3() {
-        userService.checkLogin("test","tes111t");
+        userService.checkLogin("m8","test");
     }
 }
