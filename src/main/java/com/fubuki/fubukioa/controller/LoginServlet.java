@@ -1,7 +1,5 @@
 package com.fubuki.fubukioa.controller;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fubuki.fubukioa.entity.User;
 import com.fubuki.fubukioa.service.UserService;
 import com.fubuki.fubukioa.utils.ResponseUtils;
@@ -12,12 +10,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 @WebServlet(name = "LoginServlet", value = "/api/login")
 public class LoginServlet extends HttpServlet {
     private UserService userService = new UserService();
+
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

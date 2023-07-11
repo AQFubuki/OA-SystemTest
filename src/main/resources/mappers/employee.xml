@@ -2,8 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="employeemapper">
-    <select id="selectByEmployeeId" parameterType="Long"
+<mapper namespace="com.fubuki.fubukioa.mapper.newEmployeeMapper">
+    <!--<mapper namespace="employeemapper">-->
+    <select id="selectById" parameterType="Long"
             resultType="com.fubuki.fubukioa.entity.Employee">
         select *
         from adm_employee

@@ -48,6 +48,7 @@
         <div id="app">
             <el-container style="height: 100%;border:1px solid #eee">
                 <el-header>
+<!--                    el-row默认切分成24份，el-col 12刚好为50%-->
                     <el-row>
                         <el-col :span="12">
                             <span style="font-size: 18px;color: darkcyan">
@@ -63,7 +64,9 @@
                                 </i>
                                 <template #dropdown>
                                     <el-dropdown-menu>
-                                        <el-dropdown-item>注销</el-dropdown-item>
+                                        <el-dropdown-item v-on:click="loginout">
+                                            注销
+                                        </el-dropdown-item>
                                     </el-dropdown-menu>
                                 </template>
                             </el-dropdown>
@@ -116,6 +119,10 @@
                 showPage(url) {
                     document.getElementById("main").src = url;
                 }
+                , loginout() {
+                    sessionStorage.clear();
+                    window.location.href = "/login.html";
+                }
             }
             , mounted() {
 
@@ -126,8 +133,10 @@
                 }
                 //在axios内部的this指的是windows，在外部的this指的是vue，因此要先用objApp提取出来
                 const objApp = this;
+                const uid = sessionStorage.uid;
+                const eid = sessionStorage.eid;
                 //response是axios.get()的返回值
-                axios.get("/api/user_info?uid=" + sessionStorage.uid)
+                axios.get("/api/user_info?uid=" + uid + "&eid=" + eid)
                     .then(function (response) {
                         const json = response.data;
                         // console.info(json);
@@ -135,17 +144,20 @@
                             objApp.nodeList.push(item);
                         });
                         // console.info(objApp.nodeList);
-                    });
 
-                axios.get("/api/emp_info?uid=" + sessionStorage.uid)
-                    .then(function (response) {
-                        const json = response.data;
-                        console.info(json);
-                        console.info(json.data.employee);
                         objApp.employee.name = json.data.employee.name;
                         objApp.employee.title = json.data.employee.title;
-                        console.info(objApp.employee);
                     });
+
+                // axios.get("/api/emp_info?eid=" + sessionStorage.eid)
+                //     .then(function (response) {
+                //         const json = response.data;
+                //         console.info(json);
+                //         console.info(json.data.employee);
+                //         objApp.employee.name = json.data.employee.name;
+                //         objApp.employee.title = json.data.employee.title;
+                //         console.info(objApp.employee);
+                //     });
 
             }
         };

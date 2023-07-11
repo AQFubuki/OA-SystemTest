@@ -8,7 +8,12 @@ class EmployeeServiceTest {
     @Test
     void selectByEmployeeId() {
         EmployeeService employeeService = new EmployeeService();
-        Employee employee = employeeService.selectByEmployeeId(11L);
+        Employee employee = employeeService.selectById(11L);
         System.out.println(employee);
+    }
+
+    @Test
+    void testSelectByEmployeeId() {
+
     }
 }

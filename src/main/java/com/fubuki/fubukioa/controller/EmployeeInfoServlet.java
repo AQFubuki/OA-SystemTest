@@ -17,8 +17,8 @@ public class EmployeeInfoServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String uid = request.getParameter("uid");
-        Employee employee = employeeService.selectByEmployeeId(Long.parseLong(uid));
+        String eid = request.getParameter("eid");
+        Employee employee = employeeService.selectById(Long.parseLong(eid));
         ResponseUtils result = new ResponseUtils().put("employee", employee);
         //返回JSON结果
         response.setContentType("application/json;charset=utf-8");
