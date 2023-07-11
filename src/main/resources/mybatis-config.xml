@@ -66,9 +66,11 @@
     </environments>
 
     <mappers>
-<!--        加载各种sql语句的配置文件-->
+        <!--        加载各种sql语句的配置文件-->
         <mapper resource="mappers/test.xml"/>
         <mapper resource="mappers/user.xml"/>
         <mapper resource="mappers/rbac.xml"/>
+        <mapper resource="mappers/employee.xml"/>
+
     </mappers>
 </configuration>
