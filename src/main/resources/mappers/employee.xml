@@ -10,4 +10,20 @@
         from adm_employee
         where employee_id = #{value}
     </select>
+    <select id="selectByParams" parameterType="java.util.Map"
+            resultType="com.fubuki.fubukioa.entity.Employee">
+        select *
+        from adm_employee
+        where
+        1=1
+        <if test="level != null">
+            and level = #{level}
+        </if>
+        <if test="departmentId != null">
+            and department_id = #{departmentId}
+        </if>
+        <if test="title != null">
+            and title = #{title}
+        </if>
+    </select>
 </mapper>
