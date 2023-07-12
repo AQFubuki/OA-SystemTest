@@ -1,12 +1,11 @@
 package com.fubuki.fubukioa.service;
 
 import com.fubuki.fubukioa.entity.Employee;
-import com.fubuki.fubukioa.mapper.EmployeeMapper;
 import com.fubuki.fubukioa.mapper.newEmployeeMapper;
 import com.fubuki.fubukioa.utils.MyBatisUtils;
 
 public class EmployeeService {
-    private EmployeeMapper employeeMapper = new EmployeeMapper();
+    //private EmployeeMapper employeeMapper = new EmployeeMapper();
 
     /**
      * @param employeeId 传入用户ID
@@ -15,8 +14,8 @@ public class EmployeeService {
     public Employee selectById(Long employeeId) {
 //        return employeeMapper.SelectByEmployeeId(employeeId);
         Employee employee = (Employee) MyBatisUtils.executeQuery(sqlSession -> {
-            newEmployeeMapper employeeMapper = sqlSession.getMapper(newEmployeeMapper.class);
-            return employeeMapper.selectById(employeeId);
+            newEmployeeMapper mapper = sqlSession.getMapper(newEmployeeMapper.class);
+            return mapper.selectById(employeeId);
         });
         return employee;
     }
