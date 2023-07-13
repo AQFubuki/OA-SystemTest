@@ -29,8 +29,11 @@
         <div id="app">
             <el-form :model="form" :rules="rules" label-width="80px" ref="leaveForm">
                 <el-descriptions :column="1" border title="请假申请单">
-                    <el-descriptions-item label="部门">研发部</el-descriptions-item>
-                    <el-descriptions-item label="申请人">王美美[高级研发工程师]
+                    <el-descriptions-item label="部门">
+                        {{department.departmentName}}
+                    </el-descriptions-item>
+                    <el-descriptions-item label="申请人">
+                        {{employee.name}}[{{employee.title}}]
                     </el-descriptions-item>
                     <el-descriptions-item label="请假类型">
 
@@ -48,6 +51,7 @@
                         <el-form-item label-width="0px" prop="timeRange">
                             <div class="block">
                                 <el-date-picker
+                                        @change="changeTimeRange"
                                         end-placeholder="结束日期"
                                         range-separator="至"
                                         start-placeholder="开始日期"
@@ -65,7 +69,7 @@
 
                 </el-descriptions>
                 <div style="text-align: center;padding-top: 30px">
-                    <el-button type="primary">立即申请</el-button>
+                    <el-button type="primary" v-on:click="onsubmit('leaveForm')">立即申请</el-button>
                 </div>
             </el-form>
 
@@ -76,7 +80,9 @@
             var Main = {
                 data() {
                     return {
-                        form: {
+                        employee: {}
+                        , department: {}
+                        , form: {
                             formType: "1",
                             timeRange: "",
                             startTime: "",
@@ -94,6 +100,53 @@
                             ]
                         }
                     }
+                }
+                , methods: {
+                    changeTimeRange: function () {
+                        this.form.startTime = this.form.timeRange[0].getTime();
+                        this.form.endTime = this.form.timeRange[1].getTime();
+                    }
+                    , onsubmit: function (formName) {
+                        const objApp = this;
+                        const formData = this.form;
+                        const $message = this.$message;
+                        this.$refs[formName].validate((valid) => {
+                            if (valid) {
+                                const params = new URLSearchParams();
+                                params.append("formType", formData.formType);
+                                params.append("startTime", formData.startTime);
+                                params.append("endTime", formData.endTime);
+                                params.append("reason", formData.reason);
+                                params.append("eid", sessionStorage.eid);
+                                axios.post("/api/leave/create", params)
+                                    .then(function (response) {
+                                        console.info(response);
+                                        const json = response.data;
+                                        if (json.code == "0") {
+                                            objApp.$alert("请假单已提交,等待上级审批", {
+                                                callback: function () {
+                                                    window.location.href = "/notice.html";
+                                                }
+                                            })
+                                        } else {
+                                            $message.error({message: json.message, offset: 100})
+                                        }
+                                    })
+                            }
+                        })
+                    }
+                }
+                , mounted() {
+                    const objApp = this;
+                    const uid = sessionStorage.uid;
+                    const eid = sessionStorage.eid;
+                    axios.get("/api/user_info?uid=" + uid + "&eid=" + eid)
+                        .then(function (response) {
+                            const json = response.data;
+                            objApp.employee = json.data.employee;
+                            console.info(json.data);
+                            objApp.department = json.data.department;
+                        });
                 }
             };
             ElementPlus.locale(ElementPlus.lang.zhCn);

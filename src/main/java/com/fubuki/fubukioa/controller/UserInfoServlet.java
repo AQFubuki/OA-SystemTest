@@ -1,7 +1,9 @@
 package com.fubuki.fubukioa.controller;
 
+import com.fubuki.fubukioa.entity.Department;
 import com.fubuki.fubukioa.entity.Employee;
 import com.fubuki.fubukioa.entity.Node;
+import com.fubuki.fubukioa.service.DepartmentService;
 import com.fubuki.fubukioa.service.EmployeeService;
 import com.fubuki.fubukioa.service.RbacService;
 import com.fubuki.fubukioa.utils.ResponseUtils;
@@ -21,6 +23,7 @@ import java.util.Map;
 public class UserInfoServlet extends HttpServlet {
     private RbacService rbacService = new RbacService();
     private EmployeeService employeeService = new EmployeeService();
+    private DepartmentService departmentService = new DepartmentService();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -44,10 +47,13 @@ public class UserInfoServlet extends HttpServlet {
         }
 
         Employee employee = employeeService.selectById(Long.parseLong(eid));
+        Long did = employee.getDepartmentId();
+        Department department = departmentService.selectById(did);
+        System.out.println(department.getDepartmentName());
         ResponseUtils result = new ResponseUtils()
                 .put("nodeList", treeList)
-                .put("employee", employee);
-
+                .put("employee", employee)
+                .put("department", department);
 
         //返回JSON结果
         response.setContentType("application/json;charset=utf-8");
