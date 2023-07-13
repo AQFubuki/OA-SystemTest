@@ -124,6 +124,7 @@
                                         const json = response.data;
                                         if (json.code == "0") {
                                             objApp.$alert("请假单已提交,等待上级审批", {
+                                                // 对话框点击确定后执行的操作
                                                 callback: function () {
                                                     window.location.href = "/notice.html";
                                                 }

@@ -34,6 +34,10 @@ public class ResponseUtils {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         try {
+            //模块注册，用于解决JSON无法转化日期的错误
+            //objectMapper.registerModule(new JavaTimeModule());
+            //return data == null ? null : objectMapper.writeValueAsString(data);
+
             String json = objectMapper.writeValueAsString(this);
             return json;
         } catch (JsonProcessingException e) {

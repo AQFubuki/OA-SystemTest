@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 class LeaveFormServiceTest {
 
@@ -108,5 +110,21 @@ class LeaveFormServiceTest {
         form.setCreateTime(new Date());
         LeaveForm savedForm = leaveFormService.createLeaveForm(form);
         System.out.println(savedForm.getFormId());
+    }
+
+    @Test
+    void testInsert() {
+    }
+
+    @Test
+    void selectByParams() {
+        List<Map> process = leaveFormService.getLeaveFormList("process", 6l);
+        for (Map map : process) {
+            System.out.println(map);
+        }
+    }
+
+    @Test
+    void createLeaveForm() {
     }
 }
