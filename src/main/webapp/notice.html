@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>系统通知</title>
+        <!-- 引入样式 -->
+        <link href="/assets/element-plus/index.css" rel="stylesheet" type="text/css">
+        <!-- 引入组件库 -->
+        <script src="/assets/vue/vue.global.js"></script>
+        <script src="/assets/element-plus/index.full.js"></script>
+        <script src="/assets/axios/axios.js"></script>
+        <script src="/assets/oa/security.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <h2>系统通知</h2>
+            <el-table
+                    :data="tableData"
+                    highlight-current-row
+                    ref="singleTable"
+                    style="width: 100%">
+                <el-table-column
+                        label="序号"
+                        property="index"
+                        width="50">
+                </el-table-column>
+                <el-table-column
+                        label="通知时间"
+                        property="ctime"
+                        width="180">
+                </el-table-column>
+
+                <el-table-column
+                        label="通知内容"
+                        property="content">
+                </el-table-column>
+            </el-table>
+
+        </div>
+
+        <script>
+
+            var Main = {
+                data() {
+                    return {
+                        tableData: []
+                    }
+                }
+                , mounted() {
+                    const objApp = this;
+                    axios.get("/api/notice/list?eid=" + sessionStorage.eid)
+                        .then(function (response) {
+                            objApp.tableData.splice(0, objApp.tableData.length);
+                            response.data.data.list.forEach(function (item, index) {
+                                var date = new Date(item.createTime);
+                                item.ctime = date.getFullYear() + "-" +
+                                    (date.getMonth() + 1) + "-" + date.getDate()
+                                    + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+                                item.index = index + 1;
+                                objApp.tableData.push(item);
+                            });
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                }
+            };
+            const app = Vue.createApp(Main);
+            app.use(ElementPlus);
+            app.mount("#app")
+        </script>
+
+    </body>
+</html>

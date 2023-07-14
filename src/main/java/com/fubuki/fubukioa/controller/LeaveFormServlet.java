@@ -38,7 +38,7 @@ public class LeaveFormServlet extends HttpServlet {
         } else if (methodName.equals("list")) {
             this.list(request, response);
         } else if (methodName.equals("audit")) {
-
+            this.audit(request, response);
         }
     }
 
@@ -95,6 +95,26 @@ public class LeaveFormServlet extends HttpServlet {
 
             resp = new ResponseUtils().put("list", formList);
         } catch (NumberFormatException e) {
+            e.printStackTrace();
+            resp = new ResponseUtils(e.getClass().getSimpleName(), e.getMessage());
+        }
+        response.getWriter().println(resp.toJosnString());
+    }
+
+    private void audit(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String formId = request.getParameter("formId");
+        String operatorId = request.getParameter("operatorId");
+        String result = request.getParameter("result");
+        String reason = request.getParameter("reason");
+        System.out.println(formId + " " + operatorId + " " + result + " " + reason);
+
+        ResponseUtils resp = null;
+        try {
+            leaveFormService.audit(Long.parseLong(formId),
+                    Long.parseLong(operatorId), result, reason);
+            resp = new ResponseUtils();
+        } catch (Exception e) {
             e.printStackTrace();
             resp = new ResponseUtils(e.getClass().getSimpleName(), e.getMessage());
         }

@@ -128,6 +128,42 @@
                         console.info(val);
                         this.dialogFormVisible = true;
                     }
+                    , onSubmit: function (formName) {
+                        // formId – 表单编号
+                        // operatorId – 经办人(当前登录员工)
+                        // result – 审批结果
+                        // reason – 审批意见
+                        const objApp = this;
+                        const formData = this.form;
+                        const $message = this.$message;
+                        this.$refs[formName].validate((valid) => {
+                            if (valid) {
+                                const params = new URLSearchParams();
+                                params.append("formId", objApp.currentRow.form_id);
+                                params.append("operatorId", sessionStorage.eid);
+                                params.append("result", formData.result);
+                                params.append("reason", formData.reason);
+                                console.info(objApp.currentRow);
+                                axios.post("/api/leave/audit", params)
+                                    .then(function (response) {
+                                        console.info(response);
+                                        const json = response.data;
+                                        if (json.code == "0") {
+                                            objApp.$alert("审批意见已提交", {
+                                                // 对话框点击确定后执行的操作
+                                                callback: function () {
+                                                    window.location.href = "/notice.html";
+                                                }
+                                            })
+                                        } else {
+                                            $message.error({message: json.message, offset: 100})
+                                        }
+                                    })
+                            } else {
+                                console.info("有问题");
+                            }
+                        })
+                    }
                 }
                 , mounted() {
                     const objApp = this;

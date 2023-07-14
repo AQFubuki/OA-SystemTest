@@ -2,6 +2,10 @@ package com.fubuki.fubukioa.mapper;
 
 import com.fubuki.fubukioa.entity.Notice;
 
+import java.util.List;
+
 public interface NoticeMapper {
     public void insert(Notice notice);
+
+    public List<Notice> selectByReceiverId(Long receiverId);
 }
