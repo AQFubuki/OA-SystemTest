@@ -54,6 +54,7 @@ public class LeaveFormService {
             LeaveFormMapper leaveFormMapper = sqlSession
                     .getMapper(LeaveFormMapper.class);
             leaveFormMapper.insert(form);
+            NoticeMapper noticeMapper = sqlSession.getMapper(NoticeMapper.class);
             // 2.增加第一条数据流程，说明表单已提交，状态为complete
             ProcessFlowMapper processFlowMapper = sqlSession
                     .getMapper(ProcessFlowMapper.class);
@@ -66,6 +67,7 @@ public class LeaveFormService {
             flow1.setState("complete");
             flow1.setIsLast(0);
             processFlowMapper.insert(flow1);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH时");
             //3.分情况创建其余流程数据
             //3.1 7级以下员工,生成部门经理审批任务,请假时间大于等于72小时,还需生成总经理审批任务
             if (employee.getLevel() < 7) {
@@ -99,6 +101,12 @@ public class LeaveFormService {
                     flow2.setIsLast(1);
                     processFlowMapper.insert(flow2);
                 }
+
+                String notice1 = String.format("您的请假申请[%s-%s]已提交,请等待上级审批.", sdf.format(form.getStartTime()), sdf.format(form.getEndTime()));
+                noticeMapper.insert(new Notice(employee.getEmployeeId(), notice1));
+                String notice2 = String.format("%s-%s提起请假申请[%s-%s],请尽快审批", employee.getTitle(), employee.getName(), sdf.format(form.getStartTime()), sdf.format(form.getEndTime()));
+                noticeMapper.insert(new Notice(dmanager.getEmployeeId(), notice2));
+
             } else if (employee.getLevel() == 7) {
                 //3.2 7级员工,仅生成总经理审批任务
                 Employee manager = employeeService
@@ -112,6 +120,15 @@ public class LeaveFormService {
                 flow2.setOrderNo(2);
                 flow2.setIsLast(1);
                 processFlowMapper.insert(flow2);
+                //请假单已提交消息
+                String notice1 = String.format("您的请假申请[%s-%s]已提交,请等待上级审批."
+                        , sdf.format(form.getStartTime()), sdf.format(form.getEndTime()));
+                noticeMapper.insert(new Notice(employee.getEmployeeId(), notice1));
+
+                //通知总经理审批消息
+                String notice2 = String.format("%s-%s提起请假申请[%s-%s],请尽快审批",
+                        employee.getTitle(), employee.getName(), sdf.format(form.getStartTime()), sdf.format(form.getEndTime()));
+                noticeMapper.insert(new Notice(manager.getEmployeeId(), notice2));
             } else if (employee.getLevel() == 8) {
                 //3.3 8级员工,生成总经理审批任务,系统自动通过
                 ProcessFlow flow2 = new ProcessFlow();
@@ -126,6 +143,9 @@ public class LeaveFormService {
                 flow2.setOrderNo(2);
                 flow2.setIsLast(1);
                 processFlowMapper.insert(flow2);
+                String noticeContent = String.format("您的请假申请[%s-%s]系统已自动批准通过.",
+                        sdf.format(form.getStartTime()), sdf.format(form.getEndTime()));
+                noticeMapper.insert(new Notice(employee.getEmployeeId(), noticeContent));
             }
             return form;
         });

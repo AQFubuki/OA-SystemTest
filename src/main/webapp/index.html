@@ -14,6 +14,7 @@
         <script src="assets/vue/vue.global.js"></script>
         <script src="assets/element-plus/index.full.js"></script>
         <script src="assets/axios/axios.js"></script>
+        <script src="assets/oa/security.js"></script>
         <!--        <script src="//cdn.jsdelivr.net/npm/vue@3"></script>-->
         <!-- Import component library -->
         <!--        <script src="//cdn.jsdelivr.net/npm/element-plus"></script>-->
@@ -96,7 +97,7 @@
                         </el-menu>
                     </el-aside>
                     <el-main>
-                        <iframe id="main" name="main" src="https://www.bilibili.com"
+                        <iframe id="main" name="main" src="https://twitter.com/haruki_iwata"
                                 style="width: 100%;height: 95%;
                                 border: 0px"></iframe>
                     </el-main>
@@ -127,10 +128,10 @@
             , mounted() {
 
                 // 如果没有用户信息就跳转到登录界面
-                if (sessionStorage.uid == null) {
-                    window.location.href = "/login.html";
-                    //sessionStorage.uid=11;
-                }
+                // if (sessionStorage.uid == null) {
+                //     window.location.href = "/login.html";
+                //     //sessionStorage.uid=11;
+                // }
                 //在axios内部的this指的是windows，在外部的this指的是vue，因此要先用objApp提取出来
                 const objApp = this;
                 const uid = sessionStorage.uid;
