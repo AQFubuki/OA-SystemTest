@@ -4,11 +4,11 @@ import com.fubuki.fubukioa.entity.User;
 import org.junit.jupiter.api.Test;
 
 class UserServiceTest {
-    UserService userService=new UserService();
+    UserService userService = new UserService();
 
     @Test
     void checkLogin1() {
-        User user=userService.checkLogin("test","test");
+        User user = userService.checkLogin("test", "test");
         System.out.println(user);
     }
 

@@ -30,16 +30,16 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
         //调用业务逻辑
         //Map result = new LinkedHashMap();
-        ResponseUtils result=null;
+        ResponseUtils result = null;
         try {
             User user = userService.checkLogin(username, password);
             user.setPassword(null);
             user.setSalt(null);
             //处理结果编码，0代表处理成功，非零代表处理失败
-            result=new ResponseUtils().put("user",user);
+            result = new ResponseUtils().put("user", user);
         } catch (Exception e) {
             e.printStackTrace();
-            result=new ResponseUtils(e.getClass().getSimpleName(),e.getMessage());
+            result = new ResponseUtils(e.getClass().getSimpleName(), e.getMessage());
         }
         //返回JSON结果
         response.getWriter().println(result.toJosnString());

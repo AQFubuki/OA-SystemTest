@@ -23,23 +23,25 @@ public class MyBatisUtils {
             throw new ExceptionInInitializerError(e);
         }
     }
-    public static Object executeQuery(Function<SqlSession,Object> func){
-        SqlSession sqlSession=sqlSessionFactory.openSession();
+
+    public static Object executeQuery(Function<SqlSession, Object> func) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
         try {
-            Object obj=func.apply(sqlSession);
+            Object obj = func.apply(sqlSession);
             return obj;
         } finally {
             sqlSession.close();
         }
     }
-    public static Object executeUpdate(Function<SqlSession,Object> func){
+
+    public static Object executeUpdate(Function<SqlSession, Object> func) {
         //openSession中传入参数false，代表手动提交/回滚事务
-        SqlSession sqlSession=sqlSessionFactory.openSession(false);
+        SqlSession sqlSession = sqlSessionFactory.openSession(false);
         try {
-            Object obj=func.apply(sqlSession);
+            Object obj = func.apply(sqlSession);
             sqlSession.commit();
             return obj;
-        } catch (Exception e){
+        } catch (Exception e) {
             sqlSession.rollback();
             throw e;
         } finally {

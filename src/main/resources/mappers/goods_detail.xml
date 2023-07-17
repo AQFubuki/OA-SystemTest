@@ -17,7 +17,6 @@
     </resultMap>
     <select id="selectManyToOne" resultMap="rmGoodsDetail">
         select *
-        from t_goods_detail
-        limit 0,20
+        from t_goods_detail limit 0,20
     </select>
 </mapper>

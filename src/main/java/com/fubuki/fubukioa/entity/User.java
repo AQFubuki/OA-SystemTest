@@ -5,7 +5,7 @@ public class User {
     private String username;
     private String password;
     private Long employeeId;
-    private  Integer salt;
+    private Integer salt;
 
     @Override
     public String toString() {

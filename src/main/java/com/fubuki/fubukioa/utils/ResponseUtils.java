@@ -10,22 +10,24 @@ import java.util.Map;
 public class ResponseUtils {
     private String code;
     private String message;
-    private Map data=new LinkedHashMap();
+    private Map data = new LinkedHashMap();
 
     public ResponseUtils() {
-        this.code="0";
-        this.message="success";
+        this.code = "0";
+        this.message = "success";
     }
 
     public ResponseUtils(String code, String message) {
         this.code = code;
         this.message = message;
     }
-    public ResponseUtils put(String key,Object value){
-        this.data.put(key,value);
+
+    public ResponseUtils put(String key, Object value) {
+        this.data.put(key, value);
         return this;
     }
-    public String toJosnString(){
+
+    public String toJosnString() {
         //返回JSON结果
         //JsonInclude.Include.ALWAYS 默认
         //JsonInclude.Include.NON_DEFAULT 属性为默认值不序列化

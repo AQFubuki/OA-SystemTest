@@ -25,8 +25,7 @@
     <select id="selectAll" resultType="com.fubuki.entity.Goods" useCache="false">
         select *
         from t_goods
-        order by goods_id desc
-        limit 10
+        order by goods_id desc limit 10
     </select>
     <!--    单参数传递-->
     <select id="selectById" parameterType="Integer"
@@ -41,8 +40,7 @@
         select *
         from t_goods
         where current_price between #{min} and #{max}
-        order by current_price asc
-        limit 0,#{limit}
+        order by current_price asc limit 0,#{limit}
     </select>
     <!--    多表联级查询-->
     <select id="selectGoodsMap" resultType="java.util.LinkedHashMap">
@@ -147,8 +145,7 @@
     </resultMap>
     <select id="selectOneToMany" resultMap="rmGoods1">
         select *
-        from t_goods
-        limit 0,10
+        from t_goods limit 0,10
     </select>
 
     <select id="selectPage" resultType="com.fubuki.entity.Goods">

@@ -9,9 +9,9 @@ class RbacServiceTest {
 
     @Test
     void getNode() {
-        Long l= 3L;
-        RbacService rbacService=new RbacService();
-        List<Node> list=rbacService.selectNodeByUserId(1L);
+        Long l = 3L;
+        RbacService rbacService = new RbacService();
+        List<Node> list = rbacService.selectNodeByUserId(1L);
         for (Node node : list) {
             System.out.println(node);
         }

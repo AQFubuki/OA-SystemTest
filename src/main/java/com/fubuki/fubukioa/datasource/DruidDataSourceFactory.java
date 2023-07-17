@@ -8,14 +8,14 @@ import java.sql.SQLException;
 
 public class DruidDataSourceFactory extends UnpooledDataSourceFactory {
     //alibabaDruid与MyBatis兼容使用的数据源工厂类
-        public DruidDataSourceFactory() {
-            this.dataSource=new DruidDataSource();
-        }
+    public DruidDataSourceFactory() {
+        this.dataSource = new DruidDataSource();
+    }
 
     @Override
     public DataSource getDataSource() {
         try {
-            ((DruidDataSource)this.dataSource).init();
+            ((DruidDataSource) this.dataSource).init();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

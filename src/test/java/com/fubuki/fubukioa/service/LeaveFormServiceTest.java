@@ -11,6 +11,8 @@ import java.util.Map;
 
 class LeaveFormServiceTest {
 
+    LeaveFormService leaveFormService = new LeaveFormService();
+
     @Test
     void insert() {
         LeaveFormService l = new LeaveFormService();
@@ -33,8 +35,6 @@ class LeaveFormServiceTest {
         form.setState("processing");//当前状态
         l.insert(form);
     }
-
-    LeaveFormService leaveFormService = new LeaveFormService();
 
     /**
      * 市场部员工请假单(72小时以上)测试用例

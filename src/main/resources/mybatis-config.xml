@@ -8,14 +8,14 @@
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
     <!--    &lt;!&ndash;启用Pagehelper分页插件&ndash;&gt;-->
-<!--    <plugins>-->
-<!--        <plugin interceptor="com.github.pagehelper.PageInterceptor">-->
-<!--            &lt;!&ndash;设置数据库类型&ndash;&gt;-->
-<!--            <property name="helperDialect" value="mysql"/>-->
-<!--            &lt;!&ndash;分页合理化&ndash;&gt;-->
-<!--            <property name="reasonable" value="true"/>-->
-<!--        </plugin>-->
-<!--    </plugins>-->
+    <!--    <plugins>-->
+    <!--        <plugin interceptor="com.github.pagehelper.PageInterceptor">-->
+    <!--            &lt;!&ndash;设置数据库类型&ndash;&gt;-->
+    <!--            <property name="helperDialect" value="mysql"/>-->
+    <!--            &lt;!&ndash;分页合理化&ndash;&gt;-->
+    <!--            <property name="reasonable" value="true"/>-->
+    <!--        </plugin>-->
+    <!--    </plugins>-->
 
     <!--设置默认指向的数据库-->
     <environments default="dev1">
@@ -46,7 +46,7 @@
                 <property name="password" value="INDEX103996index"/>
                 <property name="initialSize" value="5"/>
                 <property name="maxActive" value="20"/>
-<!--                <property name="minPoolSize" value="5"/>-->
+                <!--                <property name="minPoolSize" value="5"/>-->
                 <!--...-->
             </dataSource>
         </environment>
