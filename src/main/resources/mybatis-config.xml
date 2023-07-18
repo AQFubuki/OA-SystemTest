@@ -27,7 +27,7 @@
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.jdbc.Driver"/>
                 <property name="url"
-                          value="jdbc:mysql://localhost:3306/fubuki_oa?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=Asia/Shanghai&amp;allowPublicKeyRetrieval=true"/>
+                          value="jdbc:mysql://192.168.189.130:3306/fubuki-oa?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=Asia/Shanghai&amp;allowPublicKeyRetrieval=true"/>
                 <property name="username" value="root"/>
                 <property name="password" value="INDEX103996index"/>
                 <!--...-->
@@ -41,9 +41,9 @@
             <dataSource type="com.fubuki.fubukioa.datasource.DruidDataSourceFactory">
                 <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
                 <property name="url"
-                          value="jdbc:mysql://localhost:3306/fubuki_oa?useUnicode=true&amp;characterEncoding=UTF-8"/>
+                          value="jdbc:mysql://192.168.189.130:3306/fubuki-oa?useUnicode=true&amp;characterEncoding=UTF-8"/>
                 <property name="username" value="root"/>
-                <property name="password" value="INDEX103996index"/>
+                <property name="password" value="AQFubuki103996!"/>
                 <property name="initialSize" value="5"/>
                 <property name="maxActive" value="20"/>
                 <!--                <property name="minPoolSize" value="5"/>-->
