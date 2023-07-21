@@ -1,7 +1,7 @@
-package com.fubuki.spring;
+package com.fubuki.spring.s01;
 
-import com.fubuki.spring.IoC.entity.Apple;
-import com.fubuki.spring.IoC.entity.Child;
+import com.fubuki.spring.s01.IoC.entity.Apple;
+import com.fubuki.spring.s01.IoC.entity.Child;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 

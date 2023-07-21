@@ -1,4 +1,4 @@
-package com.fubuki.spring.IoC.entity;
+package com.fubuki.spring.s02.ioc.entity;
 
 public class Child {
     private String name;
