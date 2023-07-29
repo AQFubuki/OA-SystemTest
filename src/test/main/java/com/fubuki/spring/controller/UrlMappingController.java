@@ -13,20 +13,21 @@ public class UrlMappingController {
     @ResponseBody
     public String getMethod(
             @RequestParam("employee_name")
-            String employeeName){
-        return employeeName+"get请求";
-    }
-    @PostMapping ("/p")
-    @ResponseBody
-    public String postMethod(String username,String password){
-        return String.format("[%s]:%d",username,password);
+            String employeeName) {
+        return employeeName + "get请求";
     }
 
-    @PostMapping ("/p1")
+    @PostMapping("/p")
     @ResponseBody
-    public String postMethod1(User user, Date createTime){
-        System.out.println(user.getUsername()+user.getPassword()+"[]"+createTime);
-        return user.getUsername()+user.getPassword()+"[]"+createTime;
+    public String postMethod(String username, String password) {
+        return String.format("[%s]:%d", username, password);
+    }
+
+    @PostMapping("/p1")
+    @ResponseBody
+    public String postMethod1(User user, Date createTime) {
+        System.out.println(user.getUsername() + user.getPassword() + "[]" + createTime);
+        return user.getUsername() + user.getPassword() + "[]" + createTime;
     }
 
 }

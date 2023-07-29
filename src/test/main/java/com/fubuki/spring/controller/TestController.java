@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class TestController {
     @GetMapping("/t") //localhost/t
     @ResponseBody //直接向响应输出字符串数据,不跳转页面
-    public String test(){
+    public String test() {
         return "SUCCESS";
     }
 }

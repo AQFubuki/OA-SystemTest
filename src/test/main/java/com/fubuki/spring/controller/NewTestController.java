@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class NewTestController {
     @GetMapping("/newt") //localhost/newt
     @ResponseBody //直接向响应输出字符串数据,不跳转页面
-    public String test(){
+    public String test() {
         return "NEW NEW NEW NEW";
     }
 }
